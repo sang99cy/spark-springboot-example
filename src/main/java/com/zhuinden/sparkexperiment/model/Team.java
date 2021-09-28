@@ -1,14 +1,14 @@
 package com.zhuinden.sparkexperiment.model;
 
 public class Team {
-    private int id;
+    private Long id;
     private String name;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -20,7 +20,7 @@ public class Team {
         this.name = name;
     }
 
-    public Team(int id, String name) {
+    public Team(Long id, String name) {
         this.id = id;
         this.name = name;
     }

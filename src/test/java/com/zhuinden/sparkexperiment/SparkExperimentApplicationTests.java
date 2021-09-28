@@ -45,13 +45,13 @@ public class SparkExperimentApplicationTests {
         //String dbQuery = "SELECT * FROM ecommerce_prod.team";
         Dataset<Row> mysql =
                 sparkSession.read().format("jdbc")
-                        .option("url", "jdbc:mysql://localhost:3306/ecommerce_prod")
+                        .option("url", "jdbc:mysql://localhost:3308/ecommerce-prod")
                         .option("user", "root")
-                        .option("password", "my-secret-pw")
-                        .option("dbtable", "ecommerce_prod.team")
+                        .option("password", "admin1234")
+                        .option("dbtable", "roles")
                         .load();
-        List<String> teams = mysql.select("id", "name").map(row -> row.mkString(), Encoders.STRING()).collectAsList();
-        teams.forEach(System.out::println);
+        List<String> roles = mysql.select("id", "name").map(row -> row.mkString(), Encoders.STRING()).collectAsList();
+        roles.forEach(System.out::println);
         // C2
 //        Properties connectionProperties = new Properties();
 //        connectionProperties.put("user", "root");
@@ -65,16 +65,16 @@ public class SparkExperimentApplicationTests {
     public void getAll() {
         Dataset<Row> mysql =
                 sparkSession.read().format("jdbc")
-                        .option("url", "jdbc:mysql://localhost:3306/ecommerce_prod")
+                        .option("url", "jdbc:mysql://localhost:3308/ecommerce-prod")
                         .option("user", "root")
-                        .option("password", "my-secret-pw")
-                        .option("dbtable", "ecommerce_prod.team")
+                        .option("password", "admin1234")
+                        .option("dbtable", "roles")
                         .load();
         List<Row> teams = mysql.select("id", "name").collectAsList();
         Gson gson = new GsonBuilder().create();
         Team new_team;
         for (Row old_team : teams) {
-            int id = (int) old_team.get(0);
+            Long id = (Long) old_team.get(0);
             String name = (String) old_team.get(1);
             new_team = new Team(id, name);
             System.out.println(gson.toJson(new_team));
